@@ -7,7 +7,7 @@ import { useSession, signOut } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session, isPending } = useSession();
+  const { data: session } = useSession();
   // console.log("Session data in Navbar:", session, "Is pending:", isPending);
   const user = session?.user;
 
@@ -22,8 +22,8 @@ export default function Navbar() {
       href: "/jobs",
     },
     {
-      label: "Company",
-      href: "/company",
+      label: "Companies",
+      href: "/companies",
     },
     {
       label: "Pricing",
