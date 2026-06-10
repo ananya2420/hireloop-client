@@ -2,16 +2,22 @@
 
 import { useState } from "react";
 import { Card, Button, Link, TextField, Label, InputGroup, Input, FieldError } from "@heroui/react";
-import {Description, Radio, RadioGroup} from "@heroui/react";
+import { Description, Radio, RadioGroup } from "@heroui/react";
+
 import { Eye, EyeSlash, Person, At, ShieldKeyhole } from "@gravity-ui/icons";
 import { signUp } from "@/lib/auth-client";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignupPage() {
     // Form fields
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role,setRole]=useState("seeker");
+    const [role, setRole] = useState("seeker");
+
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirect") || "/";
 
     // UI States
     const [isVisible, setIsVisible] = useState(false);
@@ -28,13 +34,15 @@ export default function SignupPage() {
         setSuccess("");
         setIsLoading(true);
 
+        const plan = role === 'seeker' ? 'seeker_free' : 'recruiter_free';
+
         try {
             const { data, error: authError } = await signUp.email({
                 email,
                 password,
                 name,
                 role,
-                 callbackURL: "/",
+                plan
             });
 
             if (authError) {
@@ -44,6 +52,7 @@ export default function SignupPage() {
                 setName("");
                 setEmail("");
                 setPassword("");
+                router.push(redirectTo);
             }
         } catch (err) {
             setError("An unexpected network error occurred.");
@@ -116,32 +125,29 @@ export default function SignupPage() {
                             </button>
                         </InputGroup>
                     </TextField>
-                    
-                    {/*role section */}
-                      <div className="flex flex-col gap-4">
-      <Label>Subscription plan</Label>
-      <RadioGroup defaultValue="seeker" name="role" onChange={value=>setRole(value)} orientation="horizontal">
-        <Radio value="seeker">
-          <Radio.Control>
-            <Radio.Indicator />
-          </Radio.Control>
-          <Radio.Content>
-            <Label>Job Seeker</Label>
-            
-          </Radio.Content>
-        </Radio>
-        <Radio value="recruiter">
-          <Radio.Control>
-            <Radio.Indicator />
-          </Radio.Control>
-          <Radio.Content>
-            <Label>Recruiter</Label>
-            <Description>Advanced reporting</Description>
-          </Radio.Content>
-        </Radio>
-        
-      </RadioGroup>
-    </div>
+
+                    {/* Role Selection */}
+                    <div className="flex flex-col gap-4">
+                        <Label>Subscription plan</Label>
+                        <RadioGroup defaultValue="seeker" name="role" onChange = {value => setRole(value)} orientation="horizontal">
+                            <Radio value="seeker">
+                                <Radio.Control>
+                                    <Radio.Indicator />
+                                </Radio.Control>
+                                <Radio.Content>
+                                    <Label>Job Seeker</Label>
+                                </Radio.Content>
+                            </Radio>
+                            <Radio value="recruiter">
+                                <Radio.Control>
+                                    <Radio.Indicator />
+                                </Radio.Control>
+                                <Radio.Content>
+                                    <Label>Recruiter</Label>
+                                </Radio.Content>
+                            </Radio>
+                        </RadioGroup>
+                    </div>
 
                     {/* Dynamic Status Badges */}
                     {error && (
@@ -170,7 +176,7 @@ export default function SignupPage() {
                     {/* Navigation Option */}
                     <div className="text-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                         Already have an account?{" "}
-                        <Link href="/auth/signin" className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400">
+                        <Link href={`/auth/signin?redirect=${redirectTo}    `} className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400">
                             Sign in instead
                         </Link>
                     </div>
