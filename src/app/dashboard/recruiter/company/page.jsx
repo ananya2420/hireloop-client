@@ -8,7 +8,7 @@ const CompanyPage = async () => {
     const user=await getUserSession();
    // console.log("user session in company page",user);
     const company=await getRecruiterCompany(user?.id);
-   // console.log(company);
+    console.log(company);
 
 
  
