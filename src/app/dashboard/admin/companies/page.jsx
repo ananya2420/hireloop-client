@@ -1,4 +1,4 @@
-//import CompanyTable from '@/components/dashbaord/CompanyTable';
+
 import CompanyTable from '@/components/dashboard/CompanyTable';
 import { getCompanies } from '@/lib/api/companies';
 import React from 'react';
@@ -15,11 +15,11 @@ const AdminCompaniesPage = async () => {
                         Companies for review
                     </h2>
                     <p className="text-sm text-neutral-500 mt-1">
-                        Total items submitted: {companies.length}
+                   Total items submitted: {companies.length} 
                     </p>
                 </div>
                 
-               <CompanyTable companies={companies} /> 
+                <CompanyTable companies={companies} />
             </div>
         </div>
     );

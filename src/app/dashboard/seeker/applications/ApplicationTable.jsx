@@ -11,6 +11,8 @@ import {
   Gear 
 } from '@gravity-ui/icons';
 
+ 
+
 // Utility helper to format the "Applied" relative time string
 const formatRelativeTime = (dateString) => {
   const now = new Date();
@@ -71,7 +73,7 @@ const getStatusChip = (status = "Applied") => {
   }
 };
 
-const ApplicationsTable = ({ jobs, classNames }) => {
+const ApplicationsTable = ({ jobs }) => {
   return (
     <div className="w-full bg-[#121212] p-6 rounded-xl border border-zinc-800/80 min-h-screen text-zinc-100">
       <h2 className="text-xl font-semibold mb-6 text-zinc-200">
@@ -80,26 +82,20 @@ const ApplicationsTable = ({ jobs, classNames }) => {
 
       <Table 
         className="w-full"
-        classNames={{
-          base: "bg-transparent",
-          table: "border-collapse",
-          thead: "[&>tr]:border-b [&>tr]:border-zinc-800/60",
-          th: "bg-transparent text-zinc-400 font-medium text-sm py-4 border-b border-zinc-800/60 first:pl-4 last:pr-4",
-          tr: "border-b border-zinc-800/40 hover:bg-zinc-900/40 transition-colors last:border-none",
-          td: "py-4 align-middle first:pl-4 last:pr-4 text-zinc-300 text-sm"
-        }}
+        
       >
         <Table.ScrollContainer>
           <Table.Content aria-label="Job applications tracking table">
-            <Table.Header>
+          
+            
+            <Table.Body emptyContent={"No applications found."}>
+               <Table.Header>
               <Table.Column className="w-[40%]">Job Title</Table.Column>
               <Table.Column className="w-[20%]">Company</Table.Column>
               <Table.Column className="w-[15%]">Applied</Table.Column>
               <Table.Column className="w-[15%]">Status</Table.Column>
               <Table.Column className="w-[10%] text-right">Action</Table.Column>
             </Table.Header>
-            
-            <Table.Body emptyContent={"No applications found."}>
               {jobs.map((job) => {
                 const style = getJobStyle(job.jobTitle);
                 

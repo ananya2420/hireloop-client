@@ -35,15 +35,17 @@ export default function SignupPage() {
         setIsLoading(true);
 
         const plan = role === 'seeker' ? 'seeker_free' : 'recruiter_free';
+        console.log(role);
 
         try {
             const { data, error: authError } = await signUp.email({
                 email,
                 password,
                 name,
-                role,
+                user:{role:role},
                 plan
             });
+            console.log(data);
 
             if (authError) {
                 setError(authError.message || "Something went wrong during signup.");
@@ -127,9 +129,9 @@ export default function SignupPage() {
                     </TextField>
 
                     {/* Role Selection */}
-                    <div className="flex flex-col gap-4">
+                   <div className="flex flex-col gap-4">
                         <Label>Subscription plan</Label>
-                        <RadioGroup defaultValue="seeker" name="role" onChange = {value => setRole(value)} orientation="horizontal">
+                        <RadioGroup value={role} name="role" onChange = {setRole} orientation="horizontal">
                             <Radio value="seeker">
                                 <Radio.Control>
                                     <Radio.Indicator />

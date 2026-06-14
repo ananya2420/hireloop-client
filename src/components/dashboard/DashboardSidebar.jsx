@@ -48,11 +48,11 @@ export async function DashboardSidebar() {
 
 
     const navContent = <nav className="flex flex-col gap-1">
-        {navItems.map((item) => (
+        {navItems?.map((item,index) => (
             <Link
-                key={item.label}
+                key={index}
                 className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-                href={item.href}
+                href={item?.href}
             >
                 <item.icon className="size-5 text-muted" />
                 {item.label}
