@@ -24,12 +24,15 @@ export const getUserToken=async()=>{
 }
 
 export const requireRole = async(role) =>{
+     console.log(role,'from require role')
     const user = await getUserSession()
+    console.log('user',user);
     if(!user){
         redirect('/auth/signin')
     }
     if(user?.role !== role){
         redirect('/unauthorized')
     }
+    
     return user;
 }

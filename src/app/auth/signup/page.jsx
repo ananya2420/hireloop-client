@@ -42,8 +42,8 @@ export default function SignupPage() {
                 email,
                 password,
                 name,
-                user:{role:role},
-                plan
+                user:{role:role,plan},
+                
             });
             console.log(data);
 
