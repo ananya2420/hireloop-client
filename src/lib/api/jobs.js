@@ -2,18 +2,15 @@ import { serverFetch } from "../core/server";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const getJobs = async () =>{
-    return await serverFetch('/api/jobs');
+export const getJobs = async (queryString) =>{
+    return serverFetch(`/api/jobs?${queryString}`);
 }
 
 export const getJobById = async (jobId) => {
-   // console.log({jobId});
-   console.log({jobId});
-
-    return await serverFetch(`/api/jobs/${jobId}`);
+    return serverFetch(`/api/jobs/${jobId}`);
 }
 
 export const getCompanyJobs = async (companyId, status = 'active') => {
     const res = await fetch(`${baseUrl}/api/jobs?companyId=${companyId}&status=${status}`);
-    return await  res.json();
+    return res.json();
 }
