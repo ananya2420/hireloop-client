@@ -70,7 +70,9 @@ export default function JobListingContainer({ jobs, filters, total }) {
             {jobs.map((jobItem) => (
               <JobCard
                 // Using a prefixed unique string to prevent collision with pagination or other components
-                key={`job-${jobItem._id?.$oid || jobItem._id || Math.random()}`}
+                // key={`job-${jobItem._id?.$oid || jobItem._id || Math.random()}`}
+                // Correct structure
+key={`job-${jobItem._id?.$oid || jobItem._id || Math.random()}`}
                 job={jobItem}
               />
             ))}
