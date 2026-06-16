@@ -1,6 +1,5 @@
 
-Live Links: hireloop-client-orpin.vercel.app
-
+Live Links: https://hireloop-client-orpin.vercel.app
 
 Project requirements
 
